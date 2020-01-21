@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>徐纪元的GDP柱状图</title>
+        <script type="text/javascript" src="http://d3js.org/d3.v5.min.js">
+        </script>
+        <meta name="content-type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            .center{
+                margin:0 auto;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="center">
+            <a style="font-size: 100px;color: gold;font-family:fantasy; text-align: center;"> Gross   Domestic   Product   Of   China </a><br/>
+            <input type="button" onclick="load();" value="开始绘图"/>
+            <input type="button" onclick="del();" value="删除图表"/><br/>
+            <svg width="1200" height="600"></svg>
+            <svg width="600" height="600" id="pie"></svg><br/>
+            <a>点击柱状图显示按年份统计饼图</a>
+        </div>
+        <script src="./Read.js"></script>
+        <script src="./Draw.js"></script>
+        <script src="./drawPie.js"></script>
+        </body>
