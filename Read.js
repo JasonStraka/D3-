@@ -10,11 +10,12 @@ var dataset = d3.json("./gdp.json")
         for (var i=0;i<data.length;i++) {//等价于 i in data
             var sum=0;//临时变量存储累加和
             for(j in data[i]){
+                if(data[i].hasOwnProperty(j)){//检验非父元素属性
                 if(j.indexOf("Gdp") != -1)//Gdp数据以Gdp开头
                     if(data[i][j]>0)//排除空数据
-                        sum += Math.floor(data[i][j]*100)/100;//控制精度
+                        sum += Math.floor(data[i][j]*1000)/1000;//控制精度
                 sum = Math.floor(sum*100)/100;
-            }//累计月份和
+            }}//累计月份和
             var x = Math.floor(data[i]["Prvcnm_id"]/10000);//当前省份编码
             if(!prvdata.hasOwnProperty(x)) prvdata[x]= new Array();
             prvdata[x].push(sum);
@@ -35,12 +36,10 @@ var dataset = d3.json("./gdp.json")
         //数据读入处理完毕.......................................................................
         //数组切换衔接
         var dataset = new Array();var nameset = new Array();
-        for(var i=0;i<k-1;i++){
-            dataset[i]=Gdpsum[i+1];
-            nameset[i]=Name[i+1];
-        }//去除中国
+        dataset = Gdpsum.slice(1);
+        nameset = Name.slice(1);
+        //去除中国
         drawColumn(dataset,nameset,ktoi,prvdata);
-        drawPie(dataset);
         //绘图结束..................................................................................
         console.log(data);
     })
@@ -51,5 +50,8 @@ var dataset = d3.json("./gdp.json")
 };
 const del = () =>{
     var svg = d3.select("svg").selectAll("g").remove();
+    var svg = d3.select("#pie").selectAll("g").remove();
+};
+const delPie = () =>{
     var svg = d3.select("#pie").selectAll("g").remove();
 };
