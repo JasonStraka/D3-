@@ -1,4 +1,4 @@
-const drawPie = (dataset) => {
+const drawPie = (dataset,nameset) => {
     var marge = {top:40,bottom:40,left:40,right:40}
     var svg = d3.select("#pie")
     var width = svg.attr("width")
@@ -16,10 +16,10 @@ const drawPie = (dataset) => {
     
     //新建一个弧形生成器
     var innerRadius = 0;//内半径
-    var outerRadius = 250;//外半径
+    var outerRadius = 220;//外半径
     var arc_generator = d3.arc()
-        .innerRadius(0)
-        .outerRadius(250);
+        .innerRadius(innerRadius)
+        .outerRadius(outerRadius);
         
     //将原始数据变成可以绘制饼状图的数据，
     var pieData = pie(dataset);
@@ -42,8 +42,8 @@ const drawPie = (dataset) => {
     //绘制饼状图上面的文字信息
     gs.append("text")
         .attr("transform",(d)=>{//位置设在中心处
-            return "translate("+arc_generator.centroid(d)+")";
+            return "translate("+d3.arc().innerRadius(outerRadius).outerRadius(outerRadius+30).centroid(d)+")";
         })
         .attr("text-anchor","middle")
-        .text((d)=>(Math.floor(d.data/1000)/10+"万"));
+        .text((d,i)=>(Math.floor(d.data/1000)/10+"万"));
 }
