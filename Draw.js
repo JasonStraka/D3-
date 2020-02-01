@@ -30,7 +30,7 @@ const drawColumn = (dataset,nameset,ktoi,prvdata) => {
         // .attr("dy", ".15em")
         // .attr("transform", "rotate(-65)")
         //以上
-        .text(i=>{
+        .text((d,i)=>{
             return nameset[i];
         })//x轴文本
         .attr("fill","BlueViolet")
@@ -51,7 +51,7 @@ const drawColumn = (dataset,nameset,ktoi,prvdata) => {
         .data(dataset)
         .enter()//选择未对应数据
         .append("g")
-        .on("click",(d,i)=>{drawPie(prvdata[ktoi[i+1]]);});//点击绘画饼图
+        .on("click",(d,i)=>{delPie();drawPie(prvdata[ktoi[i+1]],nameset);});//点击绘画饼图 先删后画防止重叠
     
     //绘制矩形
     var rectPadding = 10;//矩形之间的间隙
